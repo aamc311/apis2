@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Inicio</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <li class="nav-item">
+                <a class="nav-link" href="cliente.html">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="empleado.html">Empleados</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="proveedor.html">Proveedores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="producto.html">Productos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="venta.html">Venta</a>
+              </li>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>CONSUMO DE UNA API <br> PROVEEDOR <br> ENVIAR y CONSULTAR DATOS</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="text-end">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Registrar nuevo proveedor
+        </button>
+    </div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Registro</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post" id="frm_nuevo_proveedor">
+                <label for=""><b>Nombre:</b></label>
+                <br>
+                <input type="text" name="nombre_prov" id="nombre_prov"  class="form-control" required>
+                <br>
+                <label for=""><b>Email:</b></label>
+                <br>
+                <input type="email" name="email_prov" id="email_prov"  class="form-control" required>
+                <br>
+                <label for=""><b>Empresa:</b></label>
+                <br>
+                <input type="text" name="empresa_prov" id="empresa_prov"  class="form-control" required>
+                <br>
+                <label for=""><b>Vehiculo:</b></label>
+                <select name="vehiculo" id="vehiculo" class="form-control">
+                    <option value="Moto">Moto</option>
+                    <option value="Carro">Carro</option>
+                    <option value="Camioneta">Camioneta</option>
+                </select>
+                <br>
+                <label for=""><b>Telefono:</b></label>
+                <input type="number" name="telefono" id="telefono"  class="form-control" required>
+                <hr>
+                <center>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </center>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Empresa</th>
+            <th>Vehiculo</th>
+            <th>Telefono</th>
+        </tr>
+    </thead>
+    <tbody id="proveedors-tbody">
+        <tr>
+          <td colspan="4">Cargando datos...</td>
+        </tr>
+      </tbody>
+  </table>
+  <hr>
+  <div class="container" style="background-color: #212529; color:white;">
+    <center>
+    <h5><b>Elaborado por:</b> Acksohn Maquilon &copy;</h5>
+    <h5><b>Carrera:</b> Sistemas de Información</h5>
+    <h5><b>Universidad Técnica de Cotopaxi</b></h5>
+  </center>
+  </div>
+</body>
+
+<script>
+    $(document).ready(function() {
+      $("#frm_nuevo_proveedor").on('submit', function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+        $.ajax({
+          url: 'http://3.84.201.209:3333/api/proveedores',
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json', // Asegúrate de enviar JSON
+          data: JSON.stringify({
+            nombre_prov: $("#nombre_prov").val(),
+            email_prov: $("#email_prov").val(),
+            empresa_prov: $("#empresa_prov").val(), // Convertir a entero
+            vehiculo: $("#vehiculo").val(),
+            telefono: $("#telefono").val(),
+          }),
+          success: function(data) {
+            console.log(data);
+            if (data.estado) {
+              Swal.fire({
+                title: "CONFIRMACIÓN",
+                text: data.mensaje,
+                icon: 'success'
+              });
+              $("#exampleModal").modal('hide');
+              $("#frm_nuevo_proveedor")[0].reset();
+              cargarCines(); // Asegúrate de que esta función esté definida
+            } else {
+              Swal.fire({
+                title: "Dato Guardado",
+                text: data.mensaje,
+                icon: 'success'
+              });
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", xhr.responseText);
+            Swal.fire({
+              title: "ERROR",
+              text: "Hubo un problema con la solicitud.",
+              icon: 'error'
+            });
+          }
+        });
+      });
+      $(document).ready(function() {
+        function cargarproveedors() {
+          $.ajax({
+            url: 'http://3.84.201.209:3333/api/proveedores',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+              console.log(data);
+              // Asegúrate de que data sea un array de objetos
+              if (Array.isArray(data)) {
+                let proveedorsHTML = '';
+                data.forEach(proveedor => {
+                  proveedorsHTML += `
+                    <tr>
+                      <td>${proveedor.id_prov}</td>
+                      <td>${proveedor.nombre_prov}</td>
+                      <td>${proveedor.email_prov}</td>
+                      <td>${proveedor.empresa_prov}</td>
+                      <td>${proveedor.vehiculo}</td>
+                      <td>${proveedor.telefono}</td>
+                    </tr>
+                  `;
+                });
+                $('#proveedors-tbody').html(proveedorsHTML);
+              } else {
+                $('#proveedors-tbody').html('<tr><td colspan="4">No se encontraron datos</td></tr>');
+              }
+            },
+            error: function(xhr, status, error) {
+              console.error("Error en la solicitud:", xhr);
+              $('#proveedors-tbody').html('<tr><td colspan="4">Error al cargar los datos</td></tr>');
+            }
+          });
+        }
+  
+        // Cargar proveedors cuando el documento esté listo
+        cargarproveedors();
+      });
+
+    });
+
+</script>
+</html>
