@@ -117,9 +117,8 @@
   <hr>
   <div class="container" style="background-color: #212529; color:white;">
     <center>
-    <h5><b>Elaborado por:</b> Acksohn Maquilon &copy;</h5>
-    <h5><b>Carrera:</b> Sistemas de Información</h5>
-    <h5><b>Universidad Técnica de Cotopaxi</b></h5>
+    <h5><b>Elaborado por:</b> ALISON MARCALLA &copy;</h5>
+    
   </center>
   </div>
 </body>
@@ -129,7 +128,7 @@
       $("#frm_nuevo_proveedor").on('submit', function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
         $.ajax({
-          url: 'http://3.84.201.209:3333/api/proveedores',
+          url: 'http://18.119.124.202:3000/api/proveedores',
           type: 'POST',
           dataType: 'json',
           contentType: 'application/json', // Asegúrate de enviar JSON
@@ -172,7 +171,7 @@
       $(document).ready(function() {
         function cargarproveedors() {
           $.ajax({
-            url: 'http://3.84.201.209:3333/api/proveedores',
+            url: 'http://18.119.124.202:3000/api/proveedores',
             type: 'GET',
             dataType: 'json',
             success: function(data) {

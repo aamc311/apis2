@@ -114,9 +114,7 @@
   <hr>
   <div class="container" style="background-color: #212529; color:white;">
     <center>
-    <h5><b>Elaborado por:</b> Acksohn Maquilon &copy;</h5>
-    <h5><b>Carrera:</b> Sistemas de Información</h5>
-    <h5><b>Universidad Técnica de Cotopaxi</b></h5>
+    <h5><b>Elaborado por:</b> ALISON MARCALLA &copy;</h5>
   </center>
   </div>
 </body>
@@ -126,7 +124,7 @@
       $("#frm_nuevo_venta").on('submit', function(event) {
         event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
         $.ajax({
-          url: 'http://3.84.201.209:3333/api/ventas',
+          url: 'http://18.119.124.202:3000/api/ventas',
           type: 'POST',
           dataType: 'json',
           contentType: 'application/json', // Asegúrate de enviar JSON
@@ -169,7 +167,7 @@
       $(document).ready(function() {
         function cargarventas() {
           $.ajax({
-            url: 'http://3.84.201.209:3333/api/ventas',
+            url: 'http://18.119.124.202:3000/api/ventas',
             type: 'GET',
             dataType: 'json',
             success: function(data) {
